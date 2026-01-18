@@ -15,10 +15,23 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        var connectionString = configuration.GetConnectionString("SandboxConnection");
+
+        var envConn = Environment.GetEnvironmentVariable("ConnectionStrings__SandboxConnection");
+        if (!string.IsNullOrEmpty(envConn))
+        {
+            connectionString = envConn;
+        }
+
+        if (string.IsNullOrEmpty(connectionString) || configuration["ASPNETCORE_ENVIRONMENT"] == "Development")
+        {
+            connectionString = "Host=host.docker.internal;Port=5432;Database=Sandbox_v1;Username=postgres;Password=admin";
+        }
+
         // Регистрируем SandboxDbContext с пулом
         services.AddDbContextPool<SandboxDbContext>((serviceProvider, options) =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("SandboxConnection"),
+            options.UseNpgsql(connectionString,
                     npgsqlOptions =>
                     {
                         npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "sandbox");
