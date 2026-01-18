@@ -19,12 +19,14 @@
     "Container (Dockerfile)": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "environmentVariables": {
-        "ASPNETCORE_HTTPS_PORTS": "8081",
-        "ASPNETCORE_HTTP_PORTS": "8080"
-      },
-      "publishAllPorts": true,
-      "useSSL": true
+		"launchBrowser": true,
+		"launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+		"environmentVariables": {
+			"ASPNETCORE_HTTPS_PORTS": "8081",
+			"ASPNETCORE_HTTP_PORTS": "8080",
+			"ConnectionStrings__SandboxConnection": "Host=host.docker.internal;Port=5432;Database=Sandbox_v1;Username=postgres;Password=admin"
+		},
+		"useSSL": true
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json"

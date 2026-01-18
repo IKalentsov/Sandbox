@@ -15,18 +15,23 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("SandboxConnection");
+		var envConn = Environment.GetEnvironmentVariable("ConnectionStrings__SandboxConnection");
+		var connectionString = !string.IsNullOrWhiteSpace(envConn)
+			? envConn
+			: configuration.GetConnectionString("SandboxConnection");
 
-        var envConn = Environment.GetEnvironmentVariable("ConnectionStrings__SandboxConnection");
-        if (!string.IsNullOrEmpty(envConn))
-        {
-            connectionString = envConn;
-        }
-
-        if (string.IsNullOrEmpty(connectionString) || configuration["ASPNETCORE_ENVIRONMENT"] == "Development")
-        {
-            connectionString = "Host=host.docker.internal;Port=5432;Database=Sandbox_v1;Username=postgres;Password=admin";
-        }
+		if (string.IsNullOrWhiteSpace(connectionString))
+		{
+			var environment = configuration["ASPNETCORE_ENVIRONMENT"] ?? "Production";
+			if (string.Equals(environment, "Development", StringComparison.OrdinalIgnoreCase))
+			{
+				connectionString = "Host=host.docker.internal;Port=5432;Database=Sandbox_v1;Username=postgres;Password=admin";
+			}
+			else
+			{
+				throw new InvalidOperationException("Database connection string is not configured");
+			}
+		}
 
         // Регистрируем SandboxDbContext с пулом
         services.AddDbContextPool<SandboxDbContext>((serviceProvider, options) =>
