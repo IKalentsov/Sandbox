@@ -1,12 +1,49 @@
-﻿version: '3.8'
+version: "3.9"
 
 services:
   api:
-    image: api
+    container_name: sandbox-api
     build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
+      context: ./src/backend
+      dockerfile: Sandbox/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Release
+    image: sandbox-api:latest
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__SandboxConnection: Host=db;Port=5432;Database=Sandbox_v1;Username=postgres;Password=admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - sandbox-network
+
+  db:
+    container_name: sandbox-db
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: Sandbox_v1
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sandbox-network
+
+volumes:
+  postgres_data:
+
+networks:
+  sandbox-network:
+    driver: bridge
