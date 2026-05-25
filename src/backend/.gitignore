@@ -1,0 +1,46 @@
+# Visual Studio
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.psf
+*.log
+*.xml
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+*.suo
+
+# ASP.NET Core
+appsettings.Development.json
+
+# Entity Framework
+*.efmodel
+*.edmx
+
+# Build results
+[Dd]ebug[0-9]*/
+[Rr]elease[0-9]*/
+[Rr]eleases/
+x64/
+x86/
+
+# NuGet
+nuget.config
+nuget.dev.config
+NuGetScratch/
+*.nupkg
+**/packages/*
+
+# Docker
+Dockerfile.*
+
+# User-specific
+*.rsuser
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!-- Target Framework -->
+    <TargetFramework>net10.0</TargetFramework>
+
+    <!-- C# Language Version -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- Nullable context -->
+    <Nullable>enable</Nullable>
+
+    <!-- Implicit usings -->
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Generate documentation file -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!-- Treat warnings as errors -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <!-- No warnings for specific codes -->
+    <NoWarn>$(NoWarn);CS0414;CS8618;CS8604;CS1591</NoWarn>
+
+    <!-- Enable code style -->
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <!-- Enable Central Package Management -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <!-- Common Item Group -->
+  <ItemGroup>
+    <!-- Global using aliases -->
+    <Using Include="System" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Threading.Tasks" />
+  </ItemGroup>
+</Project>

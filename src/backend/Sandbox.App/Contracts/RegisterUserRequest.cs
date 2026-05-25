@@ -8,4 +8,5 @@ public record RegisterUserRequest(
     [Required] string LastName,
     [Required] string Email,
     [Required] string Password,
-    [Required] string ProfileImage);
+    [Required] string ProfileImage
+);
