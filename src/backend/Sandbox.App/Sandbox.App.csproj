@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
@@ -8,5 +7,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Sandbox.Domain\Sandbox.Domain.csproj" />
   </ItemGroup>
-
 </Project>

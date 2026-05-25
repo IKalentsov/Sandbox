@@ -3,6 +3,4 @@
 /// <summary>
 /// Маркерный интерфейс для корневых сущностей агрегата
 /// </summary>
-public interface IAggregateRoot
-{
-}
+public interface IAggregateRoot { }

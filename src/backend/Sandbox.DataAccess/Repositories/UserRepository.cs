@@ -17,14 +17,19 @@ public class UserRepository : IUserRepository
 
     #region Get
 
-    public async Task<UserEntity> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default)
+    public async Task<UserEntity> GetUserByEmailAsync(
+        string email,
+        CancellationToken cancellationToken = default
+    )
     {
-        var userEntity = await _context.Users
-                             .AsNoTracking()
-                             .FirstOrDefaultAsync(u => u.Email == email, cancellationToken)
-                         ?? throw new Exception($"Пользователь с email: {email} не найден.");
+        var userEntity =
+            await _context
+                .Users.AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == email, cancellationToken)
+            ?? throw new Exception($"Пользователь с email: {email} не найден.");
 
-        return UserEntity.Create(userEntity.Id,
+        return UserEntity.Create(
+            userEntity.Id,
             userEntity.Created,
             userEntity.Modified,
             userEntity.Login,
@@ -33,7 +38,8 @@ public class UserRepository : IUserRepository
             userEntity.Email,
             userEntity.PasswordHash,
             userEntity.Right,
-            userEntity.ProfileImage);
+            userEntity.ProfileImage
+        );
     }
 
     public Task<UserEntity> GetUserByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -41,7 +47,9 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<UserEntity>> GetUsersAsync(CancellationToken cancellationToken = default)
+    public Task<IEnumerable<UserEntity>> GetUsersAsync(
+        CancellationToken cancellationToken = default
+    )
     {
         throw new NotImplementedException();
     }
@@ -62,7 +70,10 @@ public class UserRepository : IUserRepository
 
     #region Update
 
-    public Task<UserEntity> UpdateAsync(UserEntity user, CancellationToken cancellationToken = default)
+    public Task<UserEntity> UpdateAsync(
+        UserEntity user,
+        CancellationToken cancellationToken = default
+    )
     {
         throw new NotImplementedException();
     }

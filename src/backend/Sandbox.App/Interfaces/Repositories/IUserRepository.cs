@@ -22,7 +22,10 @@ public interface IUserRepository
     /// <param name="email">Email пользователя</param>
     /// <param name="cancellationToken">Токен отмены</param>
     /// <returns>Возвращает пользователя по Email</returns>
-    Task<UserEntity> GetUserByEmailAsync(string email, CancellationToken cancellationToken = default);
+    Task<UserEntity> GetUserByEmailAsync(
+        string email,
+        CancellationToken cancellationToken = default
+    );
 
     /// <summary>
     /// Вернуть пользователя по идентификатору

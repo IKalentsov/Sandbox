@@ -7,10 +7,7 @@ namespace Sandbox.DataAccess.Persistence;
 public class SandboxDbContext : DbContext, ISandboxDbContext
 {
     public SandboxDbContext(DbContextOptions<SandboxDbContext> options)
-        : base(options)
-    {
-        
-    }
+        : base(options) { }
 
     public DbSet<UserEntity> Users { get; set; }
 
