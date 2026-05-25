@@ -1,5 +1,6 @@
 ﻿namespace Sandbox.Domain.Common;
 
-public interface IAggregateRoot
-{
-}
+/// <summary>
+/// Маркерный интерфейс для корневых сущностей агрегата
+/// </summary>
+public interface IAggregateRoot { }

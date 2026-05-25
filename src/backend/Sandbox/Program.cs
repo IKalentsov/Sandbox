@@ -38,8 +38,11 @@ using (var scope = app.Services.CreateScope())
         var pendingMigrations = await dbContext.Database.GetPendingMigrationsAsync();
         if (pendingMigrations.Any())
         {
-            logger.LogInformation("Applying {Count} pending migrations: {Migrations}",
-                pendingMigrations.Count(), string.Join(", ", pendingMigrations));
+            logger.LogInformation(
+                "Applying {Count} pending migrations: {Migrations}",
+                pendingMigrations.Count(),
+                string.Join(", ", pendingMigrations)
+            );
 
             // Применяем миграции
             await dbContext.Database.MigrateAsync();
@@ -68,12 +71,12 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
-	app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 }
 
 app.UseAuthorization();
