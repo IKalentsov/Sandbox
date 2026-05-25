@@ -4,7 +4,11 @@ namespace Sandbox.Helpers;
 
 internal class PostgreHelper
 {
-    public static async Task WaitForPostgres(IServiceProvider services, ILogger logger, CancellationToken cancellationToken = default)
+    public static async Task WaitForPostgres(
+        IServiceProvider services,
+        ILogger logger,
+        CancellationToken cancellationToken = default
+    )
     {
         var maxAttempts = 30;
         var delay = TimeSpan.FromSeconds(2);
@@ -16,7 +20,11 @@ internal class PostgreHelper
                 using var scope = services.CreateScope();
                 var dbContext = scope.ServiceProvider.GetRequiredService<SandboxDbContext>();
 
-                logger.LogInformation("Checking database connection (attempt {Attempt}/{MaxAttempts})", i, maxAttempts);
+                logger.LogInformation(
+                    "Checking database connection (attempt {Attempt}/{MaxAttempts})",
+                    i,
+                    maxAttempts
+                );
 
                 // Простая проверка подключения
                 var canConnect = await dbContext.Database.CanConnectAsync(cancellationToken);
@@ -29,11 +37,20 @@ internal class PostgreHelper
             }
             catch (Exception ex)
             {
-                logger.LogWarning(ex, "Database not ready yet (attempt {Attempt}/{MaxAttempts})", i, maxAttempts);
+                logger.LogWarning(
+                    ex,
+                    "Database not ready yet (attempt {Attempt}/{MaxAttempts})",
+                    i,
+                    maxAttempts
+                );
 
                 if (i == maxAttempts)
                 {
-                    logger.LogError(ex, "Database connection failed after {MaxAttempts} attempts", maxAttempts);
+                    logger.LogError(
+                        ex,
+                        "Database connection failed after {MaxAttempts} attempts",
+                        maxAttempts
+                    );
                     throw;
                 }
 

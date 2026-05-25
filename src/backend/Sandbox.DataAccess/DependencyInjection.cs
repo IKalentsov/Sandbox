@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -45,10 +45,10 @@ public static class DependencyInjection
                 .EnableSensitiveDataLogging();
         }, poolSize: 128); // Размер пула по умолчанию 128, можно изменить
 
-        services.AddScoped<ISandboxDbContext>(provider => provider.GetRequiredService<ISandboxDbContext>());
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
 }
+
